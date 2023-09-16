@@ -9,6 +9,7 @@ $result = array_merge($users2, $users1);
 $result1 = array_merge_recursive($users2, $users1);
 $keys = array_intersect_key($users1, $users2);
 $add = array_intersect_key($result1, $keys );
+echo "<h1>Users</h1>\n";
 print_r($result);
 print_r($result1);
 print_r($keys);
