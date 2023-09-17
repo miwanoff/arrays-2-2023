@@ -11,20 +11,17 @@ print_r($books);
 
 function cmp($a, $b)
 { // callback-функція, яка визначає спосіб сортування (по рокам)
-    // if ($a[0] < $b[0]) {
-    //     return -1;
-    // } elseif ($a[0] == $b[0]) {
-    //     return 0;
-    // } else {
-    //     return 1;
-    // }
-    return ($a[1] <=> $b[1]);
+    if ($a[1] > $b[1]) {
+        return -1;
+    } elseif ($a[1] == $b[1]) {
+        return 0;
+    } else {
+        return 1;
+    }
+    // return ($a[1] <=> $b[1]);
 }
 
-uasort($books, function ($a, $b) {
-    return ($a[1] <=> $b[1]);
-}); 
-
+uasort($books, "cmp"); // сортуємо масив за допомогою функції cmp
 foreach ($books as $key => $book) { // виводимо масив
     echo "$book[0]: \"$key\", $book[1]\n";
 }
