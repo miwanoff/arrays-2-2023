@@ -25,3 +25,11 @@ uasort($books, "cmp"); // сортуємо масив за допомогою ф
 foreach ($books as $key => $book) { // виводимо масив
     echo "$book[0]: \"$key\", $book[1]\n";
 }
+
+function try_walk($val, $key, $data)
+{  
+  echo "<p>$data \"$key\" , автор $val[0] рік $val[1]</p>\n"; 
+  //print_r();
+}
+
+array_walk($books, "try_walk", "Книга");
