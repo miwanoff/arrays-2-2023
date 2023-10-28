@@ -57,6 +57,17 @@ function cmp_capital($a, $b)
 
 }
 
+function cmp_area($a, $b)
+{ // функція, що визначає спосіб сортування (за назвою столиці)
+    if ($a["area"] < $b["area"]) {
+        return -1;
+    } elseif ($a["area"] == $b["area"]) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
 function cmp_name($a, $b)
 { // функция, определяющая способ сортировки (по названию столицы)
     if ($a["name"] < $b["name"]) {
@@ -86,6 +97,18 @@ function cmp_population($a, $b)
     if ($a["population"]["2000"] + $a["population"]["2010"] < $b["population"]["2000"] + $b["population"]["2010"]) {
         return -1;
     } elseif ($a["population"]["2000"] + $a["population"]["2010"] == $b["population"]["2000"] + $b["population"]["2010"]) {
+        return 0;
+    } else {
+        return 1;
+    }
+
+}
+
+function cmp2($a, $b)
+{ // функція, що визначає спосіб сортування (за сумою населення за 2000 та за 2010 роки)
+    if ((($a["population"]["2000"] + $a["population"]["2010"]) / count($a["population"])) < (($b["population"]["2000"] + $b["population"]["2010"]) / count($a["population"]))) {
+        return -1;
+    } elseif ((($a["population"]["2000"] + $a["population"]["2010"]) / count($a["population"])) == (($b["population"]["2000"] + $b["population"]["2010"]) / count($a["population"]))) {
         return 0;
     } else {
         return 1;
@@ -154,3 +177,28 @@ $countries_seach_result = array_intersect_key($countries, $seach_result);
 print_r($countries_seach_result);
 
 array_walk($countries_seach_result, "try_walk", "№");
+
+// $str = "[  34 555  8 9 9   ]";
+// while (strpos($str , '  ') !== false) {
+//     $str  = str_replace('  ', ' ', $str );
+//  }
+
+// echo $str; 
+
+$str_form_s = '<h3>Sort:</h3>
+    <form action="countries.php" name="myform" method="post">
+        <select name="sort" size="1">
+            <option value="cmp_name">Name</option>
+            <option value="cmp_area">Area</option>
+            <option value="cmp_capital">Capital</option>
+            <option value="cmp_population">Middle population</option>
+        </select>
+        <input name="Submit" type="submit" value="OK">
+    </form>';
+echo $str_form_s;
+
+
+if (isset($_POST["sort"])) {
+    uasort($countries, $_POST["sort"]);
+    array_walk($countries, "try_walk", "№");
+}
